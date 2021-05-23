@@ -1,4 +1,4 @@
-# MyAnimeList
+# MyAnimeList Application
  Mobile programming 3A Final project
  
  This is a simple app that displays all the current seasonal animes (Spring 2021). It features a detailed view of each anime with a picture and the synopsis.
