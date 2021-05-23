@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esiea_3a.R
 
-class AnimeAdapter(private var dataSet: List<Anime>) :
-    RecyclerView.Adapter<AnimeAdapter.ViewHolder>() {
+class AnimeAdapter(private var dataSet: List<Anime>, var listener: ((Anime) -> Unit)? = null) : RecyclerView.Adapter<AnimeAdapter.ViewHolder>() {
+
 
     /**
      * Provide a reference to the type of views that you are using
@@ -20,6 +20,7 @@ class AnimeAdapter(private var dataSet: List<Anime>) :
         init {
             // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.anime_name)
+            //textView.setOnClickListener{}
         }
     }
 
@@ -44,6 +45,9 @@ class AnimeAdapter(private var dataSet: List<Anime>) :
         // contents of the view with that element
         var anime = dataSet[position]
         viewHolder.textView.text = anime.title
+        viewHolder.itemView.setOnClickListener{
+            listener?.invoke(anime)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

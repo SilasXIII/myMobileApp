@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esiea_3a.R
@@ -23,7 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AnimeListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private val adapter = AnimeAdapter(listOf())
+    private val adapter = AnimeAdapter(listOf(),::onClickedAnime)
+
+
     private val layoutManager = LinearLayoutManager(context)
 
     override fun onCreateView(
@@ -38,6 +41,7 @@ class AnimeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.anime_recyclerview)
+
 
         recyclerView.apply {
             layoutManager = this@AnimeListFragment.layoutManager
@@ -65,12 +69,9 @@ class AnimeListFragment : Fragment() {
 
         })
 
-        /*val animeList: ArrayList<Anime> = arrayListOf<Anime>().apply {
-            add(Anime("Lucky Star"))
-            add(Anime ("Cowboy Bepop"))
-            add(Anime ("Vivy: Fluorite Eye's Song"))
-        }
+    }
 
-        adapter.UpdateList(animeList)*/
+    private fun onClickedAnime(anime: Anime) {
+        findNavController().navigate(R.id.navigateToAnimeDetailFragment)
     }
 }
