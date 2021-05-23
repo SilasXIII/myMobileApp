@@ -17,10 +17,22 @@
     </fragment>
     <fragment
         android:id="@+id/AnimeDetailFragment"
-        android:name="com.example.esiea_3a.SecondFragment"
+        android:name="com.example.esiea_3a.presentation.detail.AnimeDetailFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_anime_detail">
 
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="No title" />
+        <argument
+            android:name="image_url"
+            app:argType="string"
+            android:defaultValue="No image" />
+        <argument
+            android:name="synopsis"
+            app:argType="string"
+            android:defaultValue="An average individual gets reincarnated in another world after being hit by a truck" />
         <action
             android:id="@+id/navigateToAnimeListFragment"
             app:destination="@id/AnimeListFragment" />

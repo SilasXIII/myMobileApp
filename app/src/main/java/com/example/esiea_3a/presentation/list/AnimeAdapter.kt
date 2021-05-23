@@ -19,8 +19,7 @@ class AnimeAdapter(private var dataSet: List<Anime>, var listener: ((Anime) -> U
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.anime_name)
-            //textView.setOnClickListener{}
+            textView = view.findViewById(R.id.anime_title)
         }
     }
 
