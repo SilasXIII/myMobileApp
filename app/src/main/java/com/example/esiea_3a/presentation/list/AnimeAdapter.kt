@@ -43,7 +43,7 @@ class AnimeAdapter(private var dataSet: List<Anime>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         var anime = dataSet[position]
-        viewHolder.textView.text = anime.name
+        viewHolder.textView.text = anime.title
     }
 
     // Return the size of your dataset (invoked by the layout manager)
