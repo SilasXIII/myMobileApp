@@ -10,13 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esiea_3a.R
-import com.example.esiea_3a.presentation.api.JikanApi
+import com.example.esiea_3a.presentation.SingletonAPI
 import com.example.esiea_3a.presentation.api.JikanSeasonalResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -49,27 +47,29 @@ class AnimeListFragment : Fragment() {
             adapter = this@AnimeListFragment.adapter
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.jikan.moe/v3/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        callAPI()
+        
+    }
 
-        val jikanApi: JikanApi = retrofit.create(JikanApi::class.java)
 
-        jikanApi.getCurrentSeasonals().enqueue(object: Callback<JikanSeasonalResponse>{
-            override fun onFailure(call: Call<JikanSeasonalResponse>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+    private fun callAPI() {
+        SingletonAPI.jikanApi.getCurrentSeasonals()
+            .enqueue(object : Callback<JikanSeasonalResponse> {
+                override fun onFailure(call: Call<JikanSeasonalResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
 
-            override fun onResponse(call: Call<JikanSeasonalResponse>, response: Response<JikanSeasonalResponse>) {
-              if(response.isSuccessful && response.body() != null) {
-                  val jikanResponse: JikanSeasonalResponse = response.body()!!
-                  adapter.UpdateList(jikanResponse.anime)
-              }
-            }
+                override fun onResponse(
+                    call: Call<JikanSeasonalResponse>,
+                    response: Response<JikanSeasonalResponse>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        val jikanResponse: JikanSeasonalResponse = response.body()!!
+                        adapter.UpdateList(jikanResponse.anime)
+                    }
+                }
 
-        })
-
+            })
     }
 
     private fun onClickedAnime(anime: Anime) {
